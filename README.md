@@ -1,8 +1,10 @@
 # KeilSim
-Package with functions supporting Statistical Computing Final Project Analysis
+An R package with functions supporting Statistical Computing Final Project Analysis
 
 ## Installation Instructions
 ### Installing KeilSim
+
+Install directly from this GitHub repo as follows:
 ```
 # Install devtools, needed for install_github() function
 install.packages(devtools)
