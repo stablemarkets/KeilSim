@@ -29,4 +29,5 @@ https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Mac-or-Linux#toolchai
 
 ## Vingette
 
-A vingette is available 
+A vingette is available here:  
+http://rpubs.com/stablemarkets/KeilSim
