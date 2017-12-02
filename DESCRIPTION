@@ -1,0 +1,15 @@
+Package: KeilSim
+Title: Function for performing simulations behind Statistical Computing Final Report
+Version: 0.1
+Authors@R: person("Arman", "Oganisian", email = "aoganisi@upenn.edu", 
+		  role = c("aut", "cre"))
+Description: Package for conducting replication analysis done in BSTA 670 Statistical
+	Computing final project report. The main function is keilsim(), which replicates
+	Table 2 in section 4.2 of Alexander Kiel’s “A Bayesian approach to the g-formula”.
+Depends: Rcpp, rstan, doParallel, snow, boot
+Imports: Rcpp, rstan, doParallel, snow, boot
+LinkingTo: Rcpp
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1.9000
