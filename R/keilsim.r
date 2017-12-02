@@ -51,6 +51,7 @@
 keilsim <- function(n=20, RD=0, N_sims=1000, mcmc_iter=10000, warmup_iter=9900,
                     N_gcomp=1000, boot_iter=100, output_all=FALSE,
                     misspecified=FALSE, parallel=FALSE, ncores=NULL){
+  pckgs<-c('Rcpp','boot','rstan','doParallel','snow')
 
   # error handling: check for invalid parameter inputs #
   func_args<-mget(names(formals()),sys.frame(sys.nframe()))
