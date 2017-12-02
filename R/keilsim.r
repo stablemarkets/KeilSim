@@ -18,7 +18,7 @@
 #'     performing frequentist g-computation. See Details.
 #' @param output_all logical (TRUE/FALSE). If TRUE, outputs estimate for each
 #'     simulated dataset. If FALSE, just outputs summary statistics across all
-#'     simulated datasets.
+#'     simulated datasets. See Details.
 #' @param misspecified logical (TRUE/FALSE). If TRUE, both frequentist and
 #'     Bayesian g-computation is performing without adjusting for confounding.
 #'     If FALSE, both models correctly adjust for confounding.
@@ -44,15 +44,20 @@
 #'     The function includes an option to run the N_sims simulations in parallel.
 #'     This is enabled for both Macs and PCs by implementing doParallel, however
 #'     **reproducibility is NOT gauranteed when running in parallel** since set.seed()
-#'     is not respected. set.seed() is respected only when not running in parallel.
+#'     is not respected. set.seed() is respected only when not running in parallel. If output_all=FALSE, keilsim()
+#'     will return a list containing a single matrix of summary statistics called sum_stats.
+#'     If output_all=TRUE, the list will contain two other matrices, bayes_sims and freq_sim. These
+#'     contain the Bayesian and frequentist results for each iteration. See the Vignette
+#'     for descriptions of each column of bayes_sims and freq_sim.
 #' @export
 #' @import Rcpp rstan boot doParallel snow
 
 keilsim <- function(n=20, RD=0, N_sims=1000, mcmc_iter=10000, warmup_iter=9900,
                     N_gcomp=1000, boot_iter=100, output_all=FALSE,
                     misspecified=FALSE, parallel=FALSE, ncores=NULL){
+  
   pckgs<-c('Rcpp','boot','rstan','doParallel','snow')
-
+  
   # error handling: check for invalid parameter inputs #
   func_args<-mget(names(formals()),sys.frame(sys.nframe()))
   error_handle(func_args)
