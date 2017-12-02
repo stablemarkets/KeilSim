@@ -7,7 +7,7 @@ An R package with functions supporting Statistical Computing Final Project Analy
 Install directly from this GitHub repo as follows:
 ```
 # Install devtools, needed for install_github() function
-install.packages(devtools)
+install.packages("devtools")
 library(devtools)
 
 # use install_github() to install the package and load using library()
