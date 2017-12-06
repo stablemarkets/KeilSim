@@ -43,7 +43,7 @@ error_handle<-function(func_args){
     stop("ERROR: if parallel==TRUE then ncores cannot be null")
   }
   if(!is.null(func_args$ncores)){
-    if( !(is.integer(func_args$ncores) & func_args$ncores>1 & func_args$ & func_args$ncores <= detectCores() ) ){
+    if( !(is.integer(func_args$ncores) & func_args$ncores>1 & func_args$parallel & func_args$ncores <= detectCores() ) ){
       stop(c("ERROR: ncores must only be specified if parallel==TRUE",
              "   1 < ncores <= max cores ",
              " find max cores using detectCores() "))
