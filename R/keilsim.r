@@ -55,9 +55,9 @@
 keilsim <- function(n=20, RD=0, N_sims=1000, mcmc_iter=10000, warmup_iter=9900,
                     N_gcomp=1000, boot_iter=100, output_all=FALSE,
                     misspecified=FALSE, parallel=FALSE, ncores=NULL){
-  
+
   pckgs<-c('Rcpp','boot','rstan','doParallel','snow')
-  
+
   # error handling: check for invalid parameter inputs #
   func_args<-mget(names(formals()),sys.frame(sys.nframe()))
   error_handle(func_args)
@@ -91,8 +91,12 @@ keilsim <- function(n=20, RD=0, N_sims=1000, mcmc_iter=10000, warmup_iter=9900,
 
   ########################### Run Simulation    ################################
   if(parallel){
-    #clus<-snow::makeCluster(ncores)
-    registerDoParallel(cores = ncores)
+    if(Sys.info()[1]=='Darwin'){
+      clus<-snow::makeCluster(ncores, type = 'SOCK')
+    }else if(Sys.info()[1]=='Windows'){
+      clus<-snow::makeCluster(ncores)
+    }
+    registerDoParallel(clus)
 
     r<-foreach(i=1:N_sims,
                .export = c(ls(environment()),ls(.GlobalEnv)),
@@ -115,7 +119,7 @@ keilsim <- function(n=20, RD=0, N_sims=1000, mcmc_iter=10000, warmup_iter=9900,
                  list(bayes_res_all, freq_res_all)
 
                }
-    closeAllConnections()
+    stopCluster(clus)
 
     bayes_res_all<-do.call(rbind, r[seq(1,2*N_sims-1,2)])
     freq_res_all<-do.call(rbind, r[seq(2,2*N_sims,2)])
